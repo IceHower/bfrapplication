@@ -8,22 +8,24 @@ import Logo from '../../assets/logo.svg'
 import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { FormHandles } from '@unform/core';
+import { Link, useHistory } from 'react-router-dom';
 
 const Login: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
+    const history = useHistory();
+
     const handleSubmit = useCallback(async (data: object) => {
         try {
             formRef.current?.setErrors({});
             const schema = Yup.object().shape({
-                name: Yup.string().required('Nome obrigatório'),
                 email: Yup.string().required('E-mail obrigatório').email('Digite um e-mail válido'),
                 password: Yup.string().required('Senha obrigatória'),
-            });
+            })
             await schema.validate(data, {
                 abortEarly: false,
             });
-            
-            console.log(data)
+            history.push('/dashboard');
+            console.log(data);
         } catch(err) {
             const errors = getValidationErrors(err);
             formRef.current?.setErrors(errors);
@@ -44,7 +46,7 @@ return (
 
                 
                 <a className="password" href="#"> Esqueceu sua senha? </a>
-                <a href="#"> <FiLogIn/> Criar conta </a>
+                <Link to="/cadastro"> <FiLogIn/> Criar conta </Link>
                 <a className="site" href="https://www.bfrico.com.br/" target='_blank'> <FiArrowRight/>Acessar o Site</a>
             </Form>
         </Content>

@@ -7,9 +7,11 @@ import { Form } from '@unform/web'; // Importa o componente Form da biblioteca d
 import * as Yup from 'yup'; // Importa a biblioteca para realizar a validação de formulario, e armazena dentro de uma variavel chamada Yup
 import { FormHandles } from '@unform/core';
 import getValidationErrors from '../../utils/getValidationErrors';
+import { Link, useHistory } from 'react-router-dom';
  
 const SignUp: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
+    const history = useHistory();
 
     const handleSubmit = useCallback(async (data: object) => {
         try {
@@ -22,7 +24,7 @@ const SignUp: React.FC = () => {
             await schema.validate(data, {
                 abortEarly: false,
             });
-            
+            history.push('/dashboard');
             console.log(data)
         } catch(err) {
             const errors = getValidationErrors(err);
@@ -43,7 +45,7 @@ const SignUp: React.FC = () => {
                 <Input name='password' icon={FiLock} placeholder='Senha' type='password'/>
                 <Button type='submit'> Cadastrar </Button>
 
-                <a href="#"> <FiArrowLeft/> Voltar para logon </a>
+                <Link to="/"> <FiArrowLeft/> Voltar para logon </Link>
             </Form>
         </Content>
         
