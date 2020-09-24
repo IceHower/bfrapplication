@@ -8,6 +8,7 @@ import * as Yup from 'yup'; // Importa a biblioteca para realizar a validação 
 import { FormHandles } from '@unform/core';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { Link, useHistory } from 'react-router-dom';
+import Logo from '../../assets/logo.svg'
  
 const SignUp: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
@@ -36,6 +37,7 @@ const SignUp: React.FC = () => {
     <Container>
         <Background/>
         <Content>
+            <img src={Logo}></img>
             <h1> BF-RICO </h1>
 
             <Form ref={formRef} onSubmit={handleSubmit}>
