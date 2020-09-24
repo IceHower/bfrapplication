@@ -1,10 +1,24 @@
 import React from 'react';
-import { Container } from './styles';
+import { FiPower } from 'react-icons/fi';
+import { Container, Header, HeaderContent, Profile } from './styles';
 
 const Dashboard: React.FC = () => {
     return(
         <Container>
-            Dashboard
+            <Header>
+                <HeaderContent>
+                    <Profile>
+                        <img src="https://avatars0.githubusercontent.com/u/5678023?s=400&u=dfdc2b3c239f20f288f063357aa497911bad9ade&v=4" alt="Vinicius"></img>
+                    </Profile>
+                    <div>
+                        <span>Bem Vindo,</span>
+                        <strong>Vinicius</strong>
+                    </div>
+                    <button type="button">
+                        <FiPower />
+                    </button>
+                </HeaderContent>
+            </Header>
         </Container>
     )
 
