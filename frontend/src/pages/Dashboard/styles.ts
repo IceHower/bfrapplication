@@ -8,6 +8,29 @@ export const Container = styled.div`
 export const Header = styled.header`
     padding: 32px 0;
     background: #28262e;
+
+    .iqoption-status {
+        display: block;
+        margin-left: 30px;
+        width: 70px;
+        span {
+            font-size: 15px;
+        }
+        img {
+            width: 25px;
+            height: 25px;
+            margin-right: 10px;
+            margin-left: 15px;     
+        }
+        svg {
+            background:#008000;
+            border-radius: 50%;
+            margin-left: 5px;
+            line-height: 24px;
+        }
+    }
+
+   
 `;
 
 export const HeaderContent = styled.div`
@@ -68,6 +91,7 @@ export const Body = styled.div`
     align-items: center;
     margin-top: 20px;
     color: #999591;
+    
     strong  {
         margin-left: auto;
     }
@@ -86,6 +110,7 @@ export const Body = styled.div`
         }
 
     }
+    
 `;
 
 export const IQList = styled.div`
