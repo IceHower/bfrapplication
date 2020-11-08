@@ -42,22 +42,6 @@ export const ModalMain = styled.div`
 export const Container = styled.div`
     background-color: #312E38;
     color: #fff;
-    width: 60%;
-    height: 60%;
+    width: 980px;
     border-radius: 15px 15px 15px 15px;
-`;
-
-export const Content = styled.div`
-    display: flex;
-    max-width: 940px;
-    flex-direction: column;
-    align-items: center;
-    place-content: center;
-    form {
-        margin: 80px 0;
-        width: 340px;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-    }
 `;

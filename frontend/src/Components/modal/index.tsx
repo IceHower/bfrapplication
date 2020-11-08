@@ -1,16 +1,17 @@
 import React from 'react';
-import { Container, Content, ModalMain } from './styles';
+import { Container, ModalMain } from './styles';
 
 // O children da tag vai para a variavel children.
-
-const Modal: React.FC = ({ children }) => {
+interface ModalProps{
+    onClose(): Promise<void>;
+}
+const Modal: React.FC<ModalProps> = ({ children, onClose }) => {
 return(
     <ModalMain>
     <Container>
-        <button className='close'></button>
-        <Content>
+        <button className='close' onClick={onClose}></button>
             {children}
-        </Content>
+
     </Container>
     </ModalMain>
 );

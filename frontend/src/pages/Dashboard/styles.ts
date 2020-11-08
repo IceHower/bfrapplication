@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { shade } from 'polished';
 
 export const Container = styled.div`
     
@@ -8,7 +7,6 @@ export const Container = styled.div`
 export const Header = styled.header`
     padding: 32px 0;
     background: #28262e;
-
     .iqoption-status {
         display: block;
         margin-left: 30px;
@@ -29,7 +27,6 @@ export const Header = styled.header`
             line-height: 24px;
         }
     }
-
    
 `;
 
@@ -38,7 +35,6 @@ export const HeaderContent = styled.div`
     margin: 0 auto;
     display: flex;
     align-items: center;
-
     button {
         margin-left: auto;
         background: transparent;
@@ -49,11 +45,9 @@ export const HeaderContent = styled.div`
             height: 20px;
             transition: 0.3s color;
         }
-
         &:hover svg {
             color: #ff9000;
         }
-
     }
 `;
 
@@ -66,17 +60,14 @@ export const Profile = styled.div`
         width: 56px;
         margin-right: 14px;
     }
-
     div {
         display: flex;
         flex-direction: column;
         margin-left: 16px;
         line-height: 24px;
-
         span {
             color: #f4ede8;
         }
-
         strong {
             color: #ff9000;
         }
@@ -108,12 +99,25 @@ export const Body = styled.div`
         &:hover svg {
             color: #ff9000;
         }
-
     }
     
 `;
 
-export const IQList = styled.div`
+export const ModalItens = styled.div`   
+    div{
+        width: 880px;
+        margin: 5px auto; 
+        input {
+            flex-direction: row;   
+        }  
+    } 
+    form {
+            margin: 5px;
+            flex-direction: row;  
+        }  
+`;
+
+export const EventList = styled.div`
         background: #28262e;
         border-radius: 5px;
         max-width: 1120px;
@@ -127,7 +131,12 @@ export const IQList = styled.div`
         }
     }
     div {
-        flex: 1; /** Faz a div só utilizar o espaço disponivel */
+        margin-right: 30px;
+        img {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%; /** Utilizar 50% de border radius quando eu quiser que uma imagem fique 100% arrendondada */
+        }
         strong {
             font-size: 20px;
             color: #FFF;
@@ -137,21 +146,27 @@ export const IQList = styled.div`
             color: #a8a8b3;
             margin-top: 4px;
             display: flex;
-            .Circle {
-                margin-left: 15px;
-                background:#fbff29;
-                border-radius: 50%;
-                color: #fbff29;
-            }
+        }
+        button {
+            background: transparent;
+            border-style: none;
+            color: #a8a8b3;
+        }
+        svg {
+            cursor: pointer;
+        &:hover {
+            transition: 0.5s;
+            color: #ff9000;
+        }
         }
     }
     > svg {
         margin-left: auto; /** Vai pegar todo o espaço disponivel na esquerda e aplicar, ou seja vai colocar praticamente no final do elemento. */
         color: #CBCBD6;
+        cursor: pointer;
         &:hover {
             transition: 0.5s;
-            transform: translateX(8px);
+            transform: translateY(-3px);
             color: #ff9000;
         }
-
 `;

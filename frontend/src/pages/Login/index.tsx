@@ -1,20 +1,28 @@
 import React, {useRef, useCallback} from 'react';
-import { Container, Content, Background } from './styles';
-import { FiLogIn, FiArrowRight, FiMail, FiLock } from 'react-icons/fi';
+import { Container, Content, AnimationContainer, Background } from './styles';
+import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import Button from '../../Components/button';
 import Input from '../../Components/input'
 import {Form} from  '@unform/web';
-import Logo from '../../assets/logo.svg'
 import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { FormHandles } from '@unform/core';
 import { Link, useHistory } from 'react-router-dom';
+import {useAuth} from '../../hooks/AuthContext';
+import {useToast} from '../../hooks/ToastContext';
+
+interface SignInFormData {
+    email: string;
+    password: string;
+}
 
 const Login: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
     const history = useHistory();
+    const {signIn} = useAuth();
+    const { addToast } = useToast();
 
-    const handleSubmit = useCallback(async (data: object) => {
+    const handleSubmit = useCallback(async (data: SignInFormData) => {
         try {
             formRef.current?.setErrors({});
             const schema = Yup.object().shape({
@@ -24,31 +32,44 @@ const Login: React.FC = () => {
             await schema.validate(data, {
                 abortEarly: false,
             });
-            history.push('/dashboard');
+            
             console.log(data);
+            await signIn({
+                email: data.email,
+                password: data.password,
+            });
+            history.push('/dashboard');
         } catch(err) {
-            const errors = getValidationErrors(err);
-            formRef.current?.setErrors(errors);
+            if( err instanceof Yup.ValidationError) { // Verifica se o erro é uma instancia do YupValidation error
+                const errors = getValidationErrors(err);
+                formRef.current?.setErrors(errors);
+                return
+            }
+            // Disparar um toast
+            addToast({
+                type: 'error',
+                title: 'Error na autenticação',
+                description: 'Ocorreu um erro ao fazer login, cheque as credencias.'
+            });
         }
-    }, []);
+    }, [signIn, addToast, history]);
     
 return (
     <Container>
         <Content>
-            <img src={Logo}></img>
-            <h1> BF-RICO </h1>
+            <AnimationContainer>
+                <h1>BF-RICO</h1>
+                <Form ref={formRef} onSubmit={handleSubmit}>
+                    <h1> Faça seu logon </h1>
+                    <Input name='email' icon={FiMail} placeholder='Email' />
+                    <Input name='password' icon={FiLock} placeholder='Senha' type='password'/>
+                    <Button type='submit'> Entrar </Button>
 
-            <Form ref={formRef} onSubmit={handleSubmit}>
-                <h1> Faça seu logon </h1>
-                <Input name='email' icon={FiMail} placeholder='Email' />
-                <Input name='password' icon={FiLock} placeholder='Senha' type='password'/>
-                <Button type='submit'> Entrar </Button>
-
-                
-                <a className="password" href="#"> Esqueceu sua senha? </a>
-                <Link to="/cadastro"> <FiLogIn/> Criar conta </Link>
-                <a className="site" href="https://www.bfrico.com.br/" target='_blank'> <FiArrowRight/>Acessar o Site</a>
-            </Form>
+                    
+                    <a className="password" href="#"> Esqueceu sua senha? </a>
+                    <Link to="/cadastro"> <FiLogIn/> Criar conta </Link>
+                </Form>
+            </AnimationContainer>
         </Content>
         <Background/>
     </Container>
